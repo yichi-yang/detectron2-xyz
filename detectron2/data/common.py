@@ -9,6 +9,7 @@ import torch.utils.data as data
 from torch.utils.data.sampler import Sampler
 
 from detectron2.utils.serialize import PicklableWrapper
+from detectron2.utils.comm import get_world_size
 
 __all__ = ["MapDataset", "DatasetFromList", "AspectRatioGroupedDataset", "ToIterableDataset"]
 
@@ -244,4 +245,5 @@ class AspectRatioGroupedDataset(data.IterableDataset):
                 yield data
                 
     def __len__(self):
-        return len(self.dataset.dataset.dataset) // self.batch_size
+        world_size = get_world_size()
+        return len(self.dataset.dataset.dataset) // (self.batch_size * world_size)
