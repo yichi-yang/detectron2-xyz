@@ -201,7 +201,7 @@ class ToIterableDataset(data.IterableDataset):
             yield self.dataset[idx]
 
     def __len__(self):
-        return len(self.dataset)
+        return len(self.sampler)
 
 
 class AspectRatioGroupedDataset(data.IterableDataset):
@@ -244,4 +244,4 @@ class AspectRatioGroupedDataset(data.IterableDataset):
                 yield data
                 
     def __len__(self):
-        return len(self.dataset)
+        return len(self.dataset.dataset.dataset)
