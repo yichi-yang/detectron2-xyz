@@ -117,13 +117,14 @@ class RandomSubsetTrainingSampler(TrainingSampler):
     def _infinite_indices(self):
         g = torch.Generator()
         g.manual_seed(self._seed)  # self._seed equals seed_shuffle from __init__()
-        while True:
-            if self._shuffle:
-                # generate a random permutation to shuffle self._indexes_subset
-                randperm = torch.randperm(self._size_subset, generator=g)
-                yield from self._indexes_subset[randperm].tolist()
-            else:
-                yield from self._indexes_subset.tolist()
+        # while True:
+        # XYZ HACK
+        if self._shuffle:
+            # generate a random permutation to shuffle self._indexes_subset
+            randperm = torch.randperm(self._size_subset, generator=g)
+            yield from self._indexes_subset[randperm].tolist()
+        else:
+            yield from self._indexes_subset.tolist()
 
 
 class RepeatFactorTrainingSampler(Sampler):
