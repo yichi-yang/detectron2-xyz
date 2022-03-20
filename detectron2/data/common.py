@@ -244,4 +244,4 @@ class AspectRatioGroupedDataset(data.IterableDataset):
                 yield data
                 
     def __len__(self):
-        return len(self.dataset.dataset.dataset)
+        return len(self.dataset.dataset.dataset) // self.batch_size
