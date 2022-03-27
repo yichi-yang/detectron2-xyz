@@ -62,12 +62,11 @@ class TrainingSampler(Sampler):
     def _infinite_indices(self):
         g = torch.Generator()
         g.manual_seed(self._seed)
-        # while True:
-        # XYZ HACK
-        if self._shuffle:
-            yield from torch.randperm(self._size, generator=g).tolist()
-        else:
-            yield from torch.arange(self._size).tolist()
+        while True:
+            if self._shuffle:
+                yield from torch.randperm(self._size, generator=g).tolist()
+            else:
+                yield from torch.arange(self._size).tolist()
 
 
 class RandomSubsetTrainingSampler(TrainingSampler):
