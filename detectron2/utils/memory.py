@@ -76,7 +76,7 @@ def retry_if_cuda_oom(func):
 
         # Try on CPU. This slows down the code significantly, therefore print a notice.
         logger = logging.getLogger(__name__)
-        logger.info("Attempting to copy inputs of {} to CPU due to CUDA OOM".format(str(func)))
+        logger.info("Attempting to copy inputs of {} to CPU due to CUDA OOM".format(str(func)[0:5]))
         new_args = (maybe_to_cpu(x) for x in args)
         new_kwargs = {k: maybe_to_cpu(v) for k, v in kwargs.items()}
         return func(*new_args, **new_kwargs)
